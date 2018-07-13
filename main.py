@@ -74,11 +74,17 @@ r.shape
 
 #%%
 tmp = np.expand_dims(input_data[0], 0)
-for i in range(20):
-    r = sess.run(output, feed_dict={inputs: tmp})
+i = -1
+
+#%%
+for i in tqdm(range(i + 1, i + 10)):
+    r = sess.run(hs[-1], feed_dict={inputs: tmp[:, i:, :]})
+    tmp.shape
+    r.shape
+    tmp = np.concatenate((tmp, np.expand_dims(r, 0)), 1)
+    tmp.shape
     # pylab.plot(r[i]) and pylab.plot(label_data[i]); i = (i + 1) % data_n
-    pylab.plot(r[0])
-    tmp = np.expand_dims(r, -1)
+pylab.plot(tmp.flatten())
 pylab.show()
 
 #%% train
@@ -89,13 +95,6 @@ for i in tqdm(range(400)):
     _, lossv, result = sess.run([optimizer, loss, hs[-1]], feed_dict={inputs: input_data, y: label_data})
     # print(lossv, result[0][:10])
 
-tmp = np.expand_dims(input_data[0], 0)
-for i in range(100):
-    r = sess.run(output, feed_dict={inputs: tmp})
-    # pylab.plot(r[i]) and pylab.plot(label_data[i]); i = (i + 1) % data_n
-    pylab.plot(r[0])
-    tmp = np.expand_dims(r, -1)
-pylab.show()
 #%% test
 input_test = []
 label_test = []
