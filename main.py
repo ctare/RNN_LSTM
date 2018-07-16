@@ -19,7 +19,7 @@ def data(samples_n, seq_n):
 #%%
 sample_n = 100 # time stamp
 seq_n = 1 # data shape
-output_n = 1
+output_n = sample_n
 
 inputs = tf.placeholder(tf.float32, [None, sample_n, seq_n])
 y = tf.placeholder(tf.float32, [None, output_n])
@@ -77,7 +77,7 @@ tmp = np.expand_dims(input_data[0], 0)
 i = -1
 
 #%%
-for i in tqdm(range(i + 1, i + 10)):
+for i in tqdm(range(i + 1, i + 1000)):
     r = sess.run(hs[-1], feed_dict={inputs: tmp[:, i:, :]})
     tmp.shape
     r.shape
@@ -105,7 +105,7 @@ for i in range(1):
 input_test = np.asarray(input_test)
 label_test = np.asarray(label_test)
 
-result, l = sess.run([h, loss], feed_dict={inputs: input_test, y: label_test})
+result, l = sess.run([output, loss], feed_dict={inputs: input_test, y: label_test})
 print(input_test[0][:10])
 print(input_test[0][:10].sum(axis=1))
 print(np.around(result[0][:10]), l)
