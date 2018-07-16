@@ -74,7 +74,7 @@ pylab.show()
 # label_data.shape
 # input_data.shape
 # sess.run(states, feed_dict={inputs: input_data, y: label_data})
-for i in (range(50)):
+for i in (range(100)):
     _, lossv = sess.run([optimizer, loss], feed_dict={inputs: input_data, y: label_data})
     print(i, lossv)
     # print(lossv, result[0][:10])
